@@ -70,3 +70,26 @@ WHERE tenant_id = sqlc.arg(tenant_id)
 -- name: CreateRecord :exec
 INSERT INTO records (tenant_id, name, age, status)
 VALUES (sqlc.arg(tenant_id), sqlc.arg(name), sqlc.arg(age), sqlc.arg(status));
+
+-- name: ListRecordsWithProfile :dynamicmany
+-- Test dynamic query with single JOIN - optional profile filtering
+-- @dynamic bio
+-- @dynamic-sort name, age, created_at, profiles.bio
+SELECT r.id, r.name, r.age, r.status, r.created_at, p.bio, p.avatar_url
+FROM records r
+LEFT JOIN profiles p ON r.id = p.record_id
+WHERE r.tenant_id = sqlc.arg(tenant_id)
+  AND p.bio = sqlc.arg(bio);
+
+-- name: ListRecordsWithProfileStaticWhere :dynamicmany
+-- Test dynamic query with single JOIN but static WHERE on records table
+-- @dynamic bio
+-- @dynamic-sort name, age, created_at, profiles.bio
+SELECT r.id, r.name, r.age, r.status, r.created_at, p.bio, p.avatar_url
+FROM records r
+LEFT JOIN profiles p ON r.id = p.record_id
+WHERE r.tenant_id = sqlc.arg(tenant_id)
+  AND r.name = sqlc.arg(name)
+  AND p.bio = sqlc.arg(bio);
+
+

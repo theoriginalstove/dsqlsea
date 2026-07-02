@@ -1,8 +1,8 @@
 CREATE TABLE records (
-    id         INTEGER PRIMARY KEY AUTOINCREMENT,
-    tenant_id  INTEGER NOT NULL,
+    id         INTEGER PRIMARY KEY,
+    tenant_id  BIGINT NOT NULL,
     name       TEXT NOT NULL,
-    age        INTEGER NOT NULL,
+    age        INT NOT NULL,
     status     TEXT NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    created_at TEXT NOT NULL
 );
