@@ -11,9 +11,9 @@ import (
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/sqlc-dev/sqlc/internal/compiler"
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/compiler"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/opts"
 )
 
 type OutputPair struct {

@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/source"
-	"github.com/sqlc-dev/sqlc/internal/sql/ast"
-	"github.com/sqlc-dev/sqlc/internal/sql/astutils"
-	"github.com/sqlc-dev/sqlc/internal/sql/named"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/source"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/ast"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/astutils"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/named"
 )
 
 // Given an AST node, return the string representation of names

@@ -32,13 +32,13 @@ func main() {
 	}
 
 	if *docker {
-		x := "-extldflags \"-static\" -X github.com/sqlc-dev/sqlc/internal/cmd.version=" + version
+		x := "-extldflags \"-static\" -X github.com/theoriginalstove/dsqlsea/internal/cmd.version=" + version
 		args := []string{
 			"build",
 			"-a",
 			"-ldflags", x,
-			"-o", "/workspace/sqlc",
-			"./cmd/sqlc",
+			"-o", "/workspace/dsql",
+			"./cmd/dsql",
 		}
 		cmd := exec.Command("go", args...)
 		cmd.Env = os.Environ()

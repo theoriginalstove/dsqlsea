@@ -5,9 +5,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/sqlc-dev/sqlc/internal/codegen/sdk"
-	"github.com/sqlc-dev/sqlc/internal/pattern"
-	"github.com/sqlc-dev/sqlc/internal/plugin"
+	"github.com/theoriginalstove/dsqlsea/internal/codegen/sdk"
+	"github.com/theoriginalstove/dsqlsea/internal/pattern"
+	"github.com/theoriginalstove/dsqlsea/internal/plugin"
 )
 
 type Override struct {

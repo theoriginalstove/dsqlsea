@@ -17,11 +17,11 @@ import (
 	"github.com/spf13/pflag"
 	"gopkg.in/yaml.v3"
 
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/info"
-	"github.com/sqlc-dev/sqlc/internal/opts"
-	"github.com/sqlc-dev/sqlc/internal/sqlcdebug"
-	"github.com/sqlc-dev/sqlc/internal/tracer"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/info"
+	"github.com/theoriginalstove/dsqlsea/internal/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/sqlcdebug"
+	"github.com/theoriginalstove/dsqlsea/internal/tracer"
 )
 
 var debugProcessPlugins = sqlcdebug.New("processplugins")

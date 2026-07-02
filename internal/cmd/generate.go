@@ -14,19 +14,19 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/sqlc-dev/sqlc/internal/codegen/golang"
-	genjson "github.com/sqlc-dev/sqlc/internal/codegen/json"
-	"github.com/sqlc-dev/sqlc/internal/compiler"
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/config/convert"
-	"github.com/sqlc-dev/sqlc/internal/debug"
-	"github.com/sqlc-dev/sqlc/internal/ext"
-	"github.com/sqlc-dev/sqlc/internal/ext/process"
-	"github.com/sqlc-dev/sqlc/internal/ext/wasm"
-	"github.com/sqlc-dev/sqlc/internal/multierr"
-	"github.com/sqlc-dev/sqlc/internal/opts"
-	"github.com/sqlc-dev/sqlc/internal/plugin"
-	"github.com/sqlc-dev/sqlc/internal/sqlcdebug"
+	"github.com/theoriginalstove/dsqlsea/internal/codegen/golang"
+	genjson "github.com/theoriginalstove/dsqlsea/internal/codegen/json"
+	"github.com/theoriginalstove/dsqlsea/internal/compiler"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/config/convert"
+	"github.com/theoriginalstove/dsqlsea/internal/debug"
+	"github.com/theoriginalstove/dsqlsea/internal/ext"
+	"github.com/theoriginalstove/dsqlsea/internal/ext/process"
+	"github.com/theoriginalstove/dsqlsea/internal/ext/wasm"
+	"github.com/theoriginalstove/dsqlsea/internal/multierr"
+	"github.com/theoriginalstove/dsqlsea/internal/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/plugin"
+	"github.com/theoriginalstove/dsqlsea/internal/sqlcdebug"
 )
 
 var debugDumpCatalog = sqlcdebug.New("dumpcatalog")

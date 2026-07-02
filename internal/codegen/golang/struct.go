@@ -5,8 +5,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"github.com/sqlc-dev/sqlc/internal/codegen/golang/opts"
-	"github.com/sqlc-dev/sqlc/internal/plugin"
+	"github.com/theoriginalstove/dsqlsea/internal/codegen/golang/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/plugin"
 )
 
 type Struct struct {

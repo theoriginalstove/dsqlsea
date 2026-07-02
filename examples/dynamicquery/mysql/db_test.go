@@ -9,7 +9,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 
-	"github.com/sqlc-dev/sqlc/internal/sqltest/local"
+	"github.com/theoriginalstove/dsqlsea/internal/sqltest/local"
 )
 
 func seedContacts(t *testing.T, ctx context.Context, q *Queries) {

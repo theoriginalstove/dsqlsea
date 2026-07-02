@@ -6,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/sqlc-dev/sqlc/internal/sqltest"
+	"github.com/theoriginalstove/dsqlsea/internal/sqltest"
 )
 
 func seedContacts(t *testing.T, ctx context.Context, q *Queries) {

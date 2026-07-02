@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/debug"
-	"github.com/sqlc-dev/sqlc/internal/metadata"
-	"github.com/sqlc-dev/sqlc/internal/opts"
-	"github.com/sqlc-dev/sqlc/internal/source"
-	"github.com/sqlc-dev/sqlc/internal/sql/ast"
-	"github.com/sqlc-dev/sqlc/internal/sql/astutils"
-	"github.com/sqlc-dev/sqlc/internal/sql/validate"
-	"github.com/sqlc-dev/sqlc/internal/sqlcdebug"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/debug"
+	"github.com/theoriginalstove/dsqlsea/internal/metadata"
+	"github.com/theoriginalstove/dsqlsea/internal/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/source"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/ast"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/astutils"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/validate"
+	"github.com/theoriginalstove/dsqlsea/internal/sqlcdebug"
 )
 
 var debugDumpAST = sqlcdebug.New("dumpast")

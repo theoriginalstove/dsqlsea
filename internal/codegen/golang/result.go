@@ -6,11 +6,11 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/sqlc-dev/sqlc/internal/codegen/golang/opts"
-	"github.com/sqlc-dev/sqlc/internal/codegen/sdk"
-	"github.com/sqlc-dev/sqlc/internal/inflection"
-	"github.com/sqlc-dev/sqlc/internal/metadata"
-	"github.com/sqlc-dev/sqlc/internal/plugin"
+	"github.com/theoriginalstove/dsqlsea/internal/codegen/golang/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/codegen/sdk"
+	"github.com/theoriginalstove/dsqlsea/internal/inflection"
+	"github.com/theoriginalstove/dsqlsea/internal/metadata"
+	"github.com/theoriginalstove/dsqlsea/internal/plugin"
 )
 
 func buildEnums(req *plugin.GenerateRequest, options *opts.Options) []Enum {

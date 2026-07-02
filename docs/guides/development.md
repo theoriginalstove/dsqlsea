@@ -1,11 +1,11 @@
-# Developing sqlc
+# Developing dsqlsea
 
 ## Building
 
-For local development, install `sqlc` under an alias. We suggest `sqlc-dev`.
+For local development, install `dsql` under an alias. We suggest `dsql-dev`.
 
 ```
-go build -o ~/go/bin/sqlc-dev ./cmd/sqlc
+go build -o ~/go/bin/dsql-dev ./cmd/dsql
 ```
 
 Install `sqlc-gen-json` to avoid test failure.

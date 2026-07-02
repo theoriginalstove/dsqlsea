@@ -6,9 +6,9 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/sqlc-dev/sqlc/internal/constants"
+	"github.com/theoriginalstove/dsqlsea/internal/constants"
 
-	"github.com/sqlc-dev/sqlc/internal/source"
+	"github.com/theoriginalstove/dsqlsea/internal/source"
 )
 
 type CommentSyntax source.CommentSyntax

@@ -3,7 +3,7 @@ package golang
 import (
 	"fmt"
 
-	"github.com/sqlc-dev/sqlc/internal/plugin"
+	"github.com/theoriginalstove/dsqlsea/internal/plugin"
 )
 
 type DynamicQuery struct {

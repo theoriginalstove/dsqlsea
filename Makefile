@@ -23,8 +23,8 @@ build-endtoend:
 
 test-ci: test-examples build-endtoend vet
 
-sqlc-dev:
-	go build -o ~/bin/sqlc-dev ./cmd/sqlc/
+dsql:
+	go build -o ~/bin/dsql ./cmd/dsql/
 
 sqlc-pg-gen:
 	go build -o ~/bin/sqlc-pg-gen ./internal/tools/sqlc-pg-gen
@@ -52,6 +52,6 @@ proto:
 
 remote-proto:
 	protoc \
-		--go_out=. --go_opt="Minternal/remote/gen.proto=github.com/sqlc-dev/sqlc/internal/remote" --go_opt=module=github.com/sqlc-dev/sqlc \
-        --go-grpc_out=. --go-grpc_opt="Minternal/remote/gen.proto=github.com/sqlc-dev/sqlc/internal/remote" --go-grpc_opt=module=github.com/sqlc-dev/sqlc \
+		--go_out=. --go_opt="Minternal/remote/gen.proto=github.com/theoriginalstove/dsqlsea/internal/remote" --go_opt=module=github.com/theoriginalstove/dsqlsea \
+        --go-grpc_out=. --go-grpc_opt="Minternal/remote/gen.proto=github.com/theoriginalstove/dsqlsea/internal/remote" --go-grpc_opt=module=github.com/theoriginalstove/dsqlsea \
         internal/remote/gen.proto

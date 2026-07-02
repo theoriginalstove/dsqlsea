@@ -28,12 +28,12 @@ func main() {
 
 	fmt.Printf("::set-output name=version::%s\n", version)
 
-	x := "-X github.com/sqlc-dev/sqlc/internal/cmd.version=" + version
+	x := "-X github.com/theoriginalstove/dsqlsea/internal/cmd.version=" + version
 	args := []string{
 		"build",
 		"-ldflags", x,
-		"-o", "./sqlc",
-		"./cmd/sqlc",
+		"-o", "./dsql",
+		"./cmd/dsql",
 	}
 	cmd := exec.Command("go", args...)
 	cmd.Env = os.Environ()

@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/sqlc-dev/sqlc/internal/metadata"
-	"github.com/sqlc-dev/sqlc/internal/sql/ast"
+	"github.com/theoriginalstove/dsqlsea/internal/metadata"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/ast"
 )
 
 func TestNormalizeDynamicOperator(t *testing.T) {

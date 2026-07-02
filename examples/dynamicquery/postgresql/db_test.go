@@ -10,7 +10,7 @@ import (
 
 	_ "github.com/jackc/pgx/v5/stdlib"
 
-	"github.com/sqlc-dev/sqlc/internal/sqltest/local"
+	"github.com/theoriginalstove/dsqlsea/internal/sqltest/local"
 )
 
 func TestListRecordsDynamic(t *testing.T) {
