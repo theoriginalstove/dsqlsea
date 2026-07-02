@@ -70229,7 +70229,7 @@
       "dynamic_where": null
     }
   ],
-  "sqlc_version": "v1.31.1",
+  "sqlc_version": "v0.1.0",
   "plugin_options": "eyJvdXQiOiJnZW4iLCJpbmRlbnQiOiIgICIsImZpbGVuYW1lIjoiY29kZWdlbi5qc29uIn0=",
   "global_options": ""
 }
