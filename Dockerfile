@@ -1,4 +1,4 @@
-# STEP 1: Build sqlc
+# STEP 1: Build dsql
 FROM golang:1.26.4 AS builder
 
 COPY . /workspace
@@ -15,5 +15,5 @@ RUN go run scripts/release.go -docker
 # STEP 2: Build a tiny image
 FROM gcr.io/distroless/base-debian12
 
-COPY --from=builder /workspace/sqlc /workspace/sqlc
-ENTRYPOINT ["/workspace/sqlc"]
+COPY --from=builder /workspace/dsql /workspace/dsql
+ENTRYPOINT ["/workspace/dsql"]

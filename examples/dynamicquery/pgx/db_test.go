@@ -9,7 +9,7 @@ import (
 
 	"github.com/jackc/pgx/v5"
 
-	"github.com/sqlc-dev/sqlc/internal/sqltest/local"
+	"github.com/theoriginalstove/dsqlsea/internal/sqltest/local"
 )
 
 func TestDynamicPgx(t *testing.T) {

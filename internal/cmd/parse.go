@@ -8,11 +8,11 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"github.com/sqlc-dev/sqlc/internal/engine/clickhouse"
-	"github.com/sqlc-dev/sqlc/internal/engine/dolphin"
-	"github.com/sqlc-dev/sqlc/internal/engine/postgresql"
-	"github.com/sqlc-dev/sqlc/internal/engine/sqlite"
-	"github.com/sqlc-dev/sqlc/internal/sql/ast"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/clickhouse"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/dolphin"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/postgresql"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/sqlite"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/ast"
 )
 
 var parseCmd = &cobra.Command{

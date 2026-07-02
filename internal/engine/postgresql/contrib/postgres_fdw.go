@@ -3,8 +3,8 @@
 package contrib
 
 import (
-	"github.com/sqlc-dev/sqlc/internal/sql/ast"
-	"github.com/sqlc-dev/sqlc/internal/sql/catalog"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/ast"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/catalog"
 )
 
 var funcsPostgresFdw = []*catalog.Function{

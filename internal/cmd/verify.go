@@ -12,13 +12,13 @@ import (
 	"github.com/spf13/cobra"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/dbmanager"
-	"github.com/sqlc-dev/sqlc/internal/migrations"
-	"github.com/sqlc-dev/sqlc/internal/plugin"
-	"github.com/sqlc-dev/sqlc/internal/quickdb"
-	pb "github.com/sqlc-dev/sqlc/internal/quickdb/v1"
-	"github.com/sqlc-dev/sqlc/internal/sql/sqlpath"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/dbmanager"
+	"github.com/theoriginalstove/dsqlsea/internal/migrations"
+	"github.com/theoriginalstove/dsqlsea/internal/plugin"
+	"github.com/theoriginalstove/dsqlsea/internal/quickdb"
+	pb "github.com/theoriginalstove/dsqlsea/internal/quickdb/v1"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/sqlpath"
 )
 
 func init() {

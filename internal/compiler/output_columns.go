@@ -4,11 +4,11 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/sqlc-dev/sqlc/internal/sql/ast"
-	"github.com/sqlc-dev/sqlc/internal/sql/astutils"
-	"github.com/sqlc-dev/sqlc/internal/sql/catalog"
-	"github.com/sqlc-dev/sqlc/internal/sql/lang"
-	"github.com/sqlc-dev/sqlc/internal/sql/sqlerr"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/ast"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/astutils"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/catalog"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/lang"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/sqlerr"
 )
 
 // OutputColumns determines which columns a statement will output

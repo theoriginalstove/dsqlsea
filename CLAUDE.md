@@ -1,6 +1,6 @@
-# Claude Code Development Guide for sqlc
+# Claude Code Development Guide for dsqlsea
 
-This document provides essential information for working with the sqlc codebase, including testing, development workflow, and code structure.
+This document provides essential information for working with the dsqlsea codebase, including testing, development workflow, and code structure. dsqlsea is a temporary hard fork of sqlc.
 
 ## Quick Start
 
@@ -157,8 +157,8 @@ make start             # Start database containers
 ### Building Development Versions
 
 ```bash
-# Build main sqlc binary for development
-go build -o ~/go/bin/sqlc-dev ./cmd/sqlc
+# Build main dsql binary for development
+go build -o ~/go/bin/dsql-dev ./cmd/dsql
 
 # Build JSON plugin (required for some tests)
 go build -o ~/go/bin/sqlc-gen-json ./cmd/sqlc-gen-json
@@ -177,7 +177,7 @@ MYSQL_SERVER_URI="root:mysecretpassword@tcp(127.0.0.1:3306)/mysql?multiStatement
 
 ### Key Directories
 
-- `/cmd/` - Main binaries (sqlc, sqlc-gen-json, sqlc-test-setup)
+- `/cmd/` - Main binaries (dsql, sqlc-gen-json, sqlc-test-setup)
 - `/internal/cmd/` - Command implementations (vet, generate, etc.)
 - `/internal/engine/` - Database engine implementations
   - `/postgresql/` - PostgreSQL parser and converter

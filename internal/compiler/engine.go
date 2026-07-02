@@ -4,17 +4,17 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/sqlc-dev/sqlc/internal/analyzer"
-	"github.com/sqlc-dev/sqlc/internal/config"
-	"github.com/sqlc-dev/sqlc/internal/dbmanager"
-	"github.com/sqlc-dev/sqlc/internal/engine/dolphin"
-	"github.com/sqlc-dev/sqlc/internal/engine/postgresql"
-	pganalyze "github.com/sqlc-dev/sqlc/internal/engine/postgresql/analyzer"
-	"github.com/sqlc-dev/sqlc/internal/engine/sqlite"
-	sqliteanalyze "github.com/sqlc-dev/sqlc/internal/engine/sqlite/analyzer"
-	"github.com/sqlc-dev/sqlc/internal/opts"
-	"github.com/sqlc-dev/sqlc/internal/sql/catalog"
-	"github.com/sqlc-dev/sqlc/internal/x/expander"
+	"github.com/theoriginalstove/dsqlsea/internal/analyzer"
+	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/dbmanager"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/dolphin"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/postgresql"
+	pganalyze "github.com/theoriginalstove/dsqlsea/internal/engine/postgresql/analyzer"
+	"github.com/theoriginalstove/dsqlsea/internal/engine/sqlite"
+	sqliteanalyze "github.com/theoriginalstove/dsqlsea/internal/engine/sqlite/analyzer"
+	"github.com/theoriginalstove/dsqlsea/internal/opts"
+	"github.com/theoriginalstove/dsqlsea/internal/sql/catalog"
+	"github.com/theoriginalstove/dsqlsea/internal/x/expander"
 )
 
 type Compiler struct {
