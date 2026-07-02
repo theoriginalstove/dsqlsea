@@ -298,6 +298,11 @@ func buildQueries(req *plugin.GenerateRequest, options *opts.Options, enums []En
 				if p.Column.GetOriginalName() != "" {
 					column = p.Column.GetOriginalName()
 				}
+				if alias := p.Column.GetTableAlias(); alias != "" {
+					column = alias + "." + column
+				} else if t := p.Column.GetTable(); t != nil && t.GetName() != "" {
+					column = t.GetName() + "." + column
+				}
 				pred := DynamicPredicate{
 					FieldName: StructName(p.Column.GetName(), options),
 					VarName:   sdk.LowerTitle(field),
