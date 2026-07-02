@@ -191,6 +191,7 @@ func pluginQueryColumn(c *compiler.Column) *plugin.Column {
 		IsSqlcSlice:  c.IsSqlcSlice,
 		IsDynamic:    c.IsDynamic,
 		DynamicOp:    c.DynamicOp,
+		TableAlias:   c.TableAlias,
 	}
 
 	if c.Type != nil {

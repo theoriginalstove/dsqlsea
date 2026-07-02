@@ -52,12 +52,12 @@ func (q *Queries) ExcludeContacts(ctx context.Context, db DBTX, tenantID int64, 
 	g1 := make([]string, 0, 2)
 	if opts.name != nil {
 		n++
-		g1 = append(g1, fmt.Sprintf("name = $%d", n))
+		g1 = append(g1, fmt.Sprintf("records.name = $%d", n))
 		queryParams = append(queryParams, *opts.name)
 	}
 	if opts.status != nil {
 		n++
-		g1 = append(g1, fmt.Sprintf("status = $%d", n))
+		g1 = append(g1, fmt.Sprintf("records.status = $%d", n))
 		queryParams = append(queryParams, *opts.status)
 	}
 	switch len(g1) {
@@ -140,7 +140,7 @@ func (q *Queries) FilterRecords(ctx context.Context, db DBTX, tenantID int64, op
 			ph[i] = fmt.Sprintf("$%d", n)
 			queryParams = append(queryParams, v)
 		}
-		conds = append(conds, "id IN ("+strings.Join(ph, ", ")+")")
+		conds = append(conds, "records.id IN ("+strings.Join(ph, ", ")+")")
 	}
 	if len(conds) > 0 {
 		query += " AND " + strings.Join(conds, " AND ")
@@ -210,12 +210,12 @@ func (q *Queries) GetRecord(ctx context.Context, db DBTX, tenantID int64, opts G
 	_ = n
 	if opts.name != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("name = $%d", n))
+		conds = append(conds, fmt.Sprintf("records.name = $%d", n))
 		queryParams = append(queryParams, *opts.name)
 	}
 	if opts.age != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("age >= $%d", n))
+		conds = append(conds, fmt.Sprintf("records.age >= $%d", n))
 		queryParams = append(queryParams, *opts.age)
 	}
 	if len(conds) > 0 {
@@ -297,12 +297,12 @@ func (q *Queries) ListActiveRecords(ctx context.Context, db DBTX, arg ListActive
 	_ = n
 	if opts.name != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("name = $%d", n))
+		conds = append(conds, fmt.Sprintf("records.name = $%d", n))
 		queryParams = append(queryParams, *opts.name)
 	}
 	if opts.age != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("age >= $%d", n))
+		conds = append(conds, fmt.Sprintf("records.age >= $%d", n))
 		queryParams = append(queryParams, *opts.age)
 	}
 	if len(conds) > 0 {
@@ -389,12 +389,12 @@ func (q *Queries) ListRecords(ctx context.Context, db DBTX, tenantID int64, opts
 	_ = n
 	if opts.name != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("name = $%d", n))
+		conds = append(conds, fmt.Sprintf("records.name = $%d", n))
 		queryParams = append(queryParams, *opts.name)
 	}
 	if opts.age != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("age > $%d", n))
+		conds = append(conds, fmt.Sprintf("records.age > $%d", n))
 		queryParams = append(queryParams, *opts.age)
 	}
 	if len(conds) > 0 {
@@ -465,12 +465,12 @@ func (q *Queries) SearchContacts(ctx context.Context, db DBTX, tenantID int64, o
 	g0 := make([]string, 0, 2)
 	if opts.name != nil {
 		n++
-		g0 = append(g0, fmt.Sprintf("name = $%d", n))
+		g0 = append(g0, fmt.Sprintf("records.name = $%d", n))
 		queryParams = append(queryParams, *opts.name)
 	}
 	if opts.status != nil {
 		n++
-		g0 = append(g0, fmt.Sprintf("status = $%d", n))
+		g0 = append(g0, fmt.Sprintf("records.status = $%d", n))
 		queryParams = append(queryParams, *opts.status)
 	}
 	switch len(g0) {
@@ -541,7 +541,7 @@ func (q *Queries) SearchRecords(ctx context.Context, db DBTX, tenantID int64, op
 	_ = n
 	if opts.pattern != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("name LIKE $%d", n))
+		conds = append(conds, fmt.Sprintf("records.name LIKE $%d", n))
 		queryParams = append(queryParams, *opts.pattern)
 	}
 	if len(conds) > 0 {

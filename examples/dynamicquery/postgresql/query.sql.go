@@ -602,7 +602,7 @@ func (q *Queries) ListRecordsWithProfile(ctx context.Context, tenantID int64, op
 	_ = n
 	if opts.bio != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("profiles.bio = $%d", n))
+		conds = append(conds, fmt.Sprintf("p.bio = $%d", n))
 		queryParams = append(queryParams, *opts.bio)
 	}
 	if len(conds) > 0 {
@@ -701,7 +701,7 @@ func (q *Queries) ListRecordsWithProfileStaticWhere(ctx context.Context, arg Lis
 	_ = n
 	if opts.bio != nil {
 		n++
-		conds = append(conds, fmt.Sprintf("profiles.bio = $%d", n))
+		conds = append(conds, fmt.Sprintf("p.bio = $%d", n))
 		queryParams = append(queryParams, *opts.bio)
 	}
 	if len(conds) > 0 {

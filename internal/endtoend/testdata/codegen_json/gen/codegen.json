@@ -69813,7 +69813,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -69841,7 +69841,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -69869,7 +69869,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -69942,7 +69942,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -69970,7 +69970,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -69998,7 +69998,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -70039,7 +70039,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -70067,7 +70067,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
@@ -70095,7 +70095,7 @@
             "schema": "",
             "name": "authors"
           },
-          "table_alias": "",
+          "table_alias": "authors",
           "type": {
             "catalog": "",
             "schema": "",
