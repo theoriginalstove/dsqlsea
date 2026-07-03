@@ -8,6 +8,7 @@ package dynamicquerysqlite
 import (
 	"context"
 	"strings"
+	"time"
 )
 
 const createRecord = `-- name: CreateRecord :exec
@@ -42,7 +43,7 @@ type ExcludeContactsRow struct {
 	Name      string
 	Age       int64
 	Status    string
-	CreatedAt string
+	CreatedAt time.Time
 }
 
 type ExcludeContactsOpts struct {
@@ -133,7 +134,7 @@ type FilterRecordsRow struct {
 	ID        int64
 	Name      string
 	Age       int64
-	CreatedAt string
+	CreatedAt time.Time
 }
 
 type FilterRecordsOpts struct {
@@ -201,7 +202,7 @@ type ListRecordsRow struct {
 	ID        int64
 	Name      string
 	Age       int64
-	CreatedAt string
+	CreatedAt time.Time
 }
 
 type ListRecordsOpts struct {
@@ -293,7 +294,7 @@ type SearchContactsRow struct {
 	Name      string
 	Age       int64
 	Status    string
-	CreatedAt string
+	CreatedAt time.Time
 }
 
 type SearchContactsOpts struct {
