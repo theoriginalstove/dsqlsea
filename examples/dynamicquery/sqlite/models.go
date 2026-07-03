@@ -4,11 +4,15 @@
 
 package dynamicquerysqlite
 
+import (
+	"time"
+)
+
 type Record struct {
 	ID        int64
 	TenantID  int64
 	Name      string
 	Age       int64
 	Status    string
-	CreatedAt string
+	CreatedAt time.Time
 }

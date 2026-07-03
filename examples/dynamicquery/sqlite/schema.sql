@@ -4,5 +4,5 @@ CREATE TABLE records (
     name       TEXT NOT NULL,
     age        INT NOT NULL,
     status     TEXT NOT NULL,
-    created_at TEXT NOT NULL
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
