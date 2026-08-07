@@ -15,8 +15,8 @@ sql:
         sql_package: "pgx/v5"
 ```
 
-We've written extensive docs on [retrieving](select.md), [inserting](insert.md),
-[updating](update.md), and [deleting](delete.md) rows. 
+We've written extensive docs on [retrieving](select), [inserting](insert),
+[updating](update), and [deleting](delete) rows. 
 
 By default, sqlc runs its analysis using a built-in query analysis engine. While fast, this engine can't handle some complex queries and type-inference.
 
@@ -27,7 +27,7 @@ support planned in the future.
 
 ## Enhanced analysis with managed databases
 
-With [managed databases](managed-databases.md) configured, `generate` will automatically create a hosted ephemeral database with your
+With [managed databases](managed-databases) configured, `generate` will automatically create a hosted ephemeral database with your
 schema and use that database to improve its query analysis. And sqlc will cache its analysis locally
 on a per-query basis to speed up future `generate` runs. This saves you the trouble of running and maintaining a database with
 an up-to-date schema. Here's a minimal working configuration:
@@ -52,7 +52,7 @@ sql:
 ## Enhanced analysis using your own database
 
 You can opt-in to database-backed analysis using your own database, by providing a `uri` in your sqlc
-[database](../reference/config.md#database) configuration.
+[database](../reference/config#database) configuration.
 
 The `uri` string can contain references to environment variables using the `${...}`
 syntax. In the following example, the connection string will have the value of

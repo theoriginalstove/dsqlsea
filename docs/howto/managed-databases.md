@@ -9,7 +9,7 @@ sqlc's built-in query analysis engine. PostgreSQL support is available today,
 with MySQL on the way.
 
 Once configured, `sqlc` will also use managed databases when linting queries
-with [`sqlc vet`](vet.md) in cases where your lint rules require a connection
+with [`sqlc vet`](vet) in cases where your lint rules require a connection
 to a running database.
 
 Managed databases are under active development, and we're interested in
@@ -79,9 +79,9 @@ sql:
 
 With managed databases configured, `sqlc vet` will automatically create a hosted ephemeral database with your
 schema and use that database when running lint rules that require a
-database connection, e.g. any [rule relying on `EXPLAIN ...` output](vet.md#rules-using-explain-output).
+database connection, e.g. any [rule relying on `EXPLAIN ...` output](vet#rules-using-explain-output).
 
-If you don't yet have any vet rules, the [built-in sqlc/db-prepare rule](vet.md#sqlc-db-prepare)
+If you don't yet have any vet rules, the [built-in sqlc/db-prepare rule](vet#sqlc-db-prepare)
 is a good place to start. It prepares each of your queries against the database
 to ensure the query is valid. Here's a minimal working configuration:
 

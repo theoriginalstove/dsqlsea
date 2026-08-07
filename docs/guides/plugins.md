@@ -1,6 +1,6 @@
 # Using plugins
 
-To use plugins, you must be using [Version 2](../reference/config.md#version-2) of
+To use plugins, you must be using [Version 2](../reference/config#version-2) of
 the configuration file. The top-level `plugins` array defines the available
 plugins.
 

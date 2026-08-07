@@ -1,8 +1,8 @@
 # Overriding types
 
-:::{note}
+::note
 Type overrides and field renaming are only fully-supported for Go.
-:::
+::
 
 In many cases it's useful to tell `sqlc` explicitly what Go type you want it to
 use for a query input or output. For instance, by default when you use
@@ -39,11 +39,11 @@ sql:
           go_type: "time.Time"
 ```
 
-:::{tip}
-  A single `db_type` override configuration applies to either nullable or non-nullable
-  columns, but not both. If you want the same Go type to override regardless of
-  nullability, you'll need to configure two overrides: one with `nullable: true` and one without.
-:::
+::tip
+A single `db_type` override configuration applies to either nullable or non-nullable
+columns, but not both. If you want the same Go type to override regardless of
+nullability, you'll need to configure two overrides: one with `nullable: true` and one without.
+::
 
 ## The `overrides` list
 
@@ -68,15 +68,15 @@ Each element in the `overrides` list has the following keys:
     Note that this only applies to `db_type` overrides and has no effect on `column` overrides.
     Defaults to `false`.
 
-:::{tip}
-  A single `db_type` override configuration applies to either nullable or non-nullable
-  columns, but not both. If you want the same Go type to override regardless of nullability, you'll
-  need to configure two overrides: one with `nullable: true` and one without.
-:::
+::tip
+A single `db_type` override configuration applies to either nullable or non-nullable
+columns, but not both. If you want the same Go type to override regardless of nullability, you'll
+need to configure two overrides: one with `nullable: true` and one without.
+::
 
-:::{note}
+::note
 When generating code, `column` override configurations take precedence over `db_type` configurations.
-:::
+::
 
 ### The `go_type` map
 

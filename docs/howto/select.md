@@ -291,7 +291,7 @@ the number of elements in the slice you pass in. Though trivial it is still
 something of a nuisance. The passed in slice must not be nil or empty or an
 error will be returned (ie not a panic). The placeholder insertion location is
 marked by the meta-function `sqlc.slice()` (which is similar to `sqlc.arg()`
-that you see documented under [Naming parameters](named_parameters.md)).
+that you see documented under [Naming parameters](named_parameters)).
 
 To rephrase, the `sqlc.slice('param')` behaves identically to `sqlc.arg()` it
 terms of how it maps the explicit argument to the function signature, eg:
@@ -301,7 +301,7 @@ terms of how it maps the explicit argument to the function signature, eg:
     (like `sqlc.arg()`, the parameter does not have to be quoted)
 
 This feature is not compatible with `emit_prepared_queries` statement found in the
-[Configuration file](../reference/config.md).
+[Configuration file](../reference/config).
 
 ```sql
 CREATE TABLE authors (

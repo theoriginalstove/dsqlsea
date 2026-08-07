@@ -1,0 +1,72 @@
+# Sidebar structure for the dsqlsea documentation.
+#
+# This file is the source of truth for docs ordering and grouping. It replaces
+# the Sphinx `toctree` directives that used to live in docs/index.rst.
+#
+# Paths are relative to docs/ and carry no file extension, matching the routes
+# Nuxt Content generates for this collection. Add a page here when you add it
+# to docs/ — otherwise it renders but never appears in the sidebar.
+
+- title: Overview
+  items:
+    - overview/install
+
+- title: Tutorials
+  items:
+    - tutorials/getting-started-mysql
+    - tutorials/getting-started-postgresql
+    - tutorials/getting-started-sqlite
+
+- title: Commands
+  items:
+    - howto/generate
+    - howto/push
+    - howto/verify
+    - howto/vet
+
+- title: How-to Guides
+  items:
+    - howto/select
+    - howto/query_count
+    - howto/insert
+    - howto/update
+    - howto/delete
+    - howto/prepared_query
+    - howto/transactions
+    - howto/named_parameters
+    - howto/ddl
+    - howto/structs
+    - howto/embedding
+    - howto/overrides
+    - howto/rename
+
+- title: sqlc Cloud
+  items:
+    - howto/managed-databases
+
+- title: Reference
+  items:
+    - reference/changelog
+    - reference/cli
+    - reference/config
+    - reference/datatypes
+    - reference/environment-variables
+    - reference/language-support
+    - reference/macros
+    - reference/query-annotations
+
+- title: Conceptual Guides
+  items:
+    - howto/ci-cd
+    - guides/using-go-and-pgx
+    - guides/plugins
+    - guides/development
+    - guides/privacy
+
+# These pages exist in docs/ but were never listed in the old Sphinx toctree,
+# so they were unreachable from the sidebar. Grouped here to make them visible.
+- title: Migration Guides
+  items:
+    - guides/migrating-off-hosted-managed-databases
+    - guides/migrating-to-sqlc-gen-kotlin
+    - guides/migrating-to-sqlc-gen-python

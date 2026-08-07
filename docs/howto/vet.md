@@ -43,7 +43,7 @@ message Parameter
 ```
 
 In addition to this basic information, when you have a PostgreSQL or MySQL
-[database connection configured](../reference/config.md#database)
+[database connection configured](../reference/config#database)
 each CEL expression has access to the output from running `EXPLAIN ...` on your query
 via the `postgresql.explain` and `mysql.explain` variables.
 This output is quite complex and depends on the structure of your query but sqlc attempts
@@ -95,7 +95,7 @@ rules:
 The CEL expression environment has two variables containing `EXPLAIN ...` output,
 `postgresql.explain` and `mysql.explain`. `sqlc` only populates the variable associated with
 your configured database engine, and only when you have a
-[database connection configured](../reference/config.md#database).
+[database connection configured](../reference/config#database).
 
 For the `postgresql` engine, `sqlc` runs
 
@@ -169,14 +169,14 @@ to your database. Use your migration tool of choice to create the necessary
 tables and objects before running `sqlc vet` with rules that depend on
 `EXPLAIN ...` output.
 
-Alternatively, configure [managed databases](managed-databases.md) to have
+Alternatively, configure [managed databases](managed-databases) to have
 `sqlc` create hosted ephemeral databases with the correct schema automatically.
 
 ## Built-in rules
 
 ### sqlc/db-prepare
 
-When a [database](../reference/config.md#database) connection is configured, you can
+When a [database](../reference/config#database) connection is configured, you can
 run the built-in `sqlc/db-prepare` rule. This rule will attempt to prepare
 each of your queries against the connected database and report any failures.
 
@@ -201,7 +201,7 @@ schema for `vet` to work correctly, and `sqlc` does not apply schema migrations
 to your database. Use your migration tool of choice to create the necessary
 tables and objects before running `sqlc vet` with the `sqlc/db-prepare` rule.
 
-Alternatively, configure [managed databases](managed-databases.md) to have
+Alternatively, configure [managed databases](managed-databases) to have
 `sqlc` create hosted ephemeral databases with the correct schema automatically.
 
 ```yaml
@@ -228,7 +228,7 @@ example](https://github.com/theoriginalstove/dsqlsea/blob/main/examples/authors/
 ## Running lint rules
 
 When you add the name of a defined rule to the rules list
-for a [sql package](../reference/config.md#sql),
+for a [sql package](../reference/config#sql),
 `sqlc vet` will evaluate that rule against every query in the package.
 
 In the example below, two rules are defined but only one is enabled.

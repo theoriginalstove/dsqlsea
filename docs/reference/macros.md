@@ -116,4 +116,4 @@ Since the `/*SLICE:ages*/` placeholder is dynamically replaced on a per-query
 basis, this macro can't be used with prepared statements.
 
 See a full example in [Passing a slice as a parameter to a
-query](../howto/select.md#mysql-and-sqlite).
+query](../howto/select#mysql-and-sqlite).

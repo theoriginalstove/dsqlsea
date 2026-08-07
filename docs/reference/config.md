@@ -94,7 +94,7 @@ sql:
 The `database` mapping supports the following keys:
 
 - `managed`:
-  - If true, connect to a [managed database](../howto/managed-databases.md). Defaults to `false`.
+  - If true, connect to a [managed database](../howto/managed-databases). Defaults to `false`.
 - `uri`:
   - Database connection URI
 
@@ -194,13 +194,13 @@ The `gen` mapping supports the following keys:
 - `query_parameter_limit`:
   - The number of positional arguments that will be generated for Go functions. To always emit a parameter struct, set this to `0`. Defaults to `1`.
 - `rename`:
-  - Customize the name of generated struct fields. See [Renaming fields](../howto/rename.md) for usage information.
+  - Customize the name of generated struct fields. See [Renaming fields](../howto/rename) for usage information.
 - `overrides`:
-  - A collection of configurations to override sqlc's default Go type choices. See [Overriding types](../howto/overrides.md) for usage information.
+  - A collection of configurations to override sqlc's default Go type choices. See [Overriding types](../howto/overrides) for usage information.
 
 ##### overrides
 
-See [Overriding types](../howto/overrides.md) for an in-depth guide to using type overrides.
+See [Overriding types](../howto/overrides) for an in-depth guide to using type overrides.
 
 #### kotlin
 
@@ -283,7 +283,7 @@ Each mapping in the `rules` collection has the following keys:
 - `message`:
   - An optional message shown when this rule evaluates to `true`.
 
-See the [vet](../howto/vet.md) documentation for a list of built-in rules and
+See the [vet](../howto/vet) documentation for a list of built-in rules and
 help writing custom rules.
    
 ```yaml
@@ -421,7 +421,7 @@ Each mapping in the `packages` collection has the following keys:
 - `sql_package`:
   - Either `pgx/v4`, `pgx/v5` or `database/sql`. Defaults to `database/sql`.
 - `overrides`:
-  - A list of type override configurations. See the [Overriding types](../howto/overrides.md) guide for details.
+  - A list of type override configurations. See the [Overriding types](../howto/overrides) guide for details.
 - `emit_db_tags`:
   - If true, add DB tags to generated structs. Defaults to `false`.
 - `emit_prepared_queries`:
@@ -475,7 +475,7 @@ Each mapping in the `packages` collection has the following keys:
 
 ### overrides
 
-See the version 1 configuration section of the [Overriding types](../howto/overrides.md#version-1-configuration) guide for details.
+See the version 1 configuration section of the [Overriding types](../howto/overrides#version-1-configuration) guide for details.
 
 ### rename
 

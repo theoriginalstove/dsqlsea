@@ -372,13 +372,13 @@ Released 2024-01-03
 
 #### Add tags to push and verify
 
-You can add tags when [pushing](../howto/push.md) schema and queries to [sqlc Cloud](https://dashboard.sqlc.dev). Tags operate like git tags, meaning you can overwrite previously-pushed tag values. We suggest tagging pushes to associate them with something relevant from your environment, e.g. a git tag or branch name.
+You can add tags when [pushing](../howto/push) schema and queries to [sqlc Cloud](https://dashboard.sqlc.dev). Tags operate like git tags, meaning you can overwrite previously-pushed tag values. We suggest tagging pushes to associate them with something relevant from your environment, e.g. a git tag or branch name.
 
 ```
 $ sqlc push --tag v1.0.0
 ```
 
-Once you've created a tag, you can refer to it when [verifying](../howto/verify.md) changes, allowing you
+Once you've created a tag, you can refer to it when [verifying](../howto/verify) changes, allowing you
 to compare the existing schema against a known set of previous queries.
 
 ```
@@ -548,7 +548,7 @@ Like upload, `push` should be run when you tag a release of your application. We
 
 #### MySQL support in `createdb`
 
-The `createdb` command, added in the last release, now supports MySQL. If you have a cloud project configured, you can use `sqlc createdb` to spin up a new ephemeral database with your schema and print its connection string to standard output. This is useful for integrating with other tools. Read more in the [managed databases](../howto/managed-databases.md#with-other-tools) documentation.
+The `createdb` command, added in the last release, now supports MySQL. If you have a cloud project configured, you can use `sqlc createdb` to spin up a new ephemeral database with your schema and print its connection string to standard output. This is useful for integrating with other tools. Read more in the [managed databases](../howto/managed-databases#with-other-tools) documentation.
 
 #### Plugin interface refactor
 
@@ -612,12 +612,12 @@ Released 2023-10-24
 
 #### Database-backed query analysis
 
-With a [database connection](config.md#database) configured, `sqlc generate`
+With a [database connection](config#database) configured, `sqlc generate`
 will gather metadata from that database to support its query analysis.
 Turning this on resolves a [large number of
 issues](https://github.com/sqlc-dev/sqlc/issues?q=is%3Aissue+label%3Aanalyzer)
 in the backlog related to type inference and more complex queries. The easiest
-way to try it out is with [managed databases](../howto/managed-databases.md).
+way to try it out is with [managed databases](../howto/managed-databases).
 
 The database-backed analyzer currently supports PostgreSQL, with [MySQL](https://github.com/sqlc-dev/sqlc/issues/2902) and [SQLite](https://github.com/sqlc-dev/sqlc/issues/2903)
 support planned in the future.
@@ -628,11 +628,11 @@ When you have a cloud project configured, you can use the new `sqlc createdb`
 command to spin up a new ephemeral database with your schema and print its
 connection string to standard output. This is useful for integrating with other
 tools. Read more in the [managed
-databases](../howto/managed-databases.md#with-other-tools) documentation.
+databases](../howto/managed-databases#with-other-tools) documentation.
 
 #### Support for pgvector
 
-If you're using [pgvector](https://github.com/pgvector/pgvector), say goodbye to custom overrides! sqlc now generates code using [pgvector-go](https://github.com/pgvector/pgvector-go#pgx) as long as you're using `pgx`. The pgvector extension is also available in [managed databases](../howto/managed-databases.md).
+If you're using [pgvector](https://github.com/pgvector/pgvector), say goodbye to custom overrides! sqlc now generates code using [pgvector-go](https://github.com/pgvector/pgvector-go#pgx) as long as you're using `pgx`. The pgvector extension is also available in [managed databases](../howto/managed-databases).
 
 #### Go build tags
 
@@ -744,7 +744,7 @@ Released 2023-09-26
 
 #### Managed databases for `sqlc vet`
 
-If you're using [sqlc vet](../howto/vet.md) to write rules that require access to a running
+If you're using [sqlc vet](../howto/vet) to write rules that require access to a running
 database, `sqlc` can now start and manage that database for you. PostgreSQL
 support is available today, with MySQL on the way.
 
@@ -755,7 +755,7 @@ performant.
 This feature relies on configuration obtained via [sqlc
 Cloud](https://dashboard.sqlc.dev).
 
-Read more in the [managed databases](../howto/managed-databases.md) documentation.
+Read more in the [managed databases](../howto/managed-databases) documentation.
 
 ### Changes
 
@@ -833,7 +833,7 @@ full list.
 
 #### Plugin access to environment variables
 
-If you're authoring a [sqlc plugin](../guides/plugins.html), you can now configure
+If you're authoring a [sqlc plugin](../guides/plugins), you can now configure
 sqlc to pass your plugin the values of specific environment variables.
 
 For example, if your plugin
@@ -985,7 +985,7 @@ rules:
     !(postgresql.explain.plan.plans.all(p, has(p.index_name) || p.plans.all(p, has(p.index_name))))
 ```
 
-The expression environment has two variables containing `EXPLAIN ...` output, `postgresql.explain` and `mysql.explain`. `sqlc` only populates the variable associated with your configured database engine, and only when you have a [database connection configured](../reference/config.md#database).
+The expression environment has two variables containing `EXPLAIN ...` output, `postgresql.explain` and `mysql.explain`. `sqlc` only populates the variable associated with your configured database engine, and only when you have a [database connection configured](../reference/config#database).
 
 For the `postgresql` engine, `sqlc` runs
 
@@ -1204,9 +1204,9 @@ Released 2023-07-06
 
 #### sqlc vet
 
-[`sqlc vet`](../howto/vet.md) runs queries through a set of lint rules.
+[`sqlc vet`](../howto/vet) runs queries through a set of lint rules.
 
-Rules are defined in the `sqlc` [configuration](config.md) file. They consist
+Rules are defined in the `sqlc` [configuration](config) file. They consist
 of a name, message, and a [Common Expression Language (CEL)](https://github.com/google/cel-spec)
 expression. Expressions are evaluated using [cel-go](https://github.com/google/cel-go).
 If an expression evaluates to `true`, an error is reported using the given message.
@@ -1254,7 +1254,7 @@ rules:
 database server. We'll expand this functionality over time, but for now it
 powers the `sqlc/db-prepare` built-in rule.
 
-When a [database](config.html#database) is configured, the
+When a [database](config#database) is configured, the
 `sqlc/db-preapre` rule will attempt to prepare each of your
 queries against the connected database and report any failures.
 
@@ -1290,7 +1290,7 @@ package.
 #### Suggested CI/CD setup
 
 With the addition of `sqlc diff` and `sqlc vet`, we encourage users to run sqlc
-in your CI/CD pipelines. See our [suggested CI/CD setup](../howto/ci-cd.md) for
+in your CI/CD pipelines. See our [suggested CI/CD setup](../howto/ci-cd) for
 more information.
 
 #### Simplified plugin development

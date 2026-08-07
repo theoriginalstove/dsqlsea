@@ -1,8 +1,8 @@
 # `push` - Uploading projects
 
-```{note}
+::note
 `push` is powered by [sqlc Cloud](https://dashboard.sqlc.dev). Sign up for [free](https://dashboard.sqlc.dev) today.
-```
+::
 
 *Added in v1.24.0*
 

@@ -24,17 +24,17 @@ by comparing the expected output from `sqlc generate` to what's on disk.
 
 `sqlc vet` runs a set of lint rules against your SQL queries. These rules are
 helpful in catching anti-patterns before they make it into production. Please
-see the [vet](vet.md) documentation for a complete guide to adding lint rules
+see the [vet](vet) documentation for a complete guide to adding lint rules
 for your project.
 
 `sqlc verify` ensures that schema changes do not break production. Existing
 queries are checked against new schema changes for correctness. Please see the
-[verify](verify.md) documentation for a complete guide.
+[verify](verify) documentation for a complete guide.
 
 
 `sqlc push` pushes your database schema, queries and configuration to sqlc
 Cloud. These archives are used by `verify` to catch breaking changes to your
-database schema.  Learn more about uploading projects [here](push.md)
+database schema.  Learn more about uploading projects [here](push)
 
 ## General setup
 
@@ -70,7 +70,7 @@ jobs:
 
 ### vet
 
-The following GitHub Workflow configuration runs [sqlc vet](vet.md) on every push.
+The following GitHub Workflow configuration runs [sqlc vet](vet) on every push.
 You can use `sqlc vet` without a database connection, but you'll need one if your
 `sqlc` configuration references the built-in `sqlc/db-prepare` lint rule.
 
@@ -98,11 +98,11 @@ jobs:
 
 ### push
 
-```{note}
+::note
 Pushing a project is powered by [sqlc Cloud](https://dashboard.sqlc.dev). Sign up for [free](https://dashboard.sqlc.dev) today.
-```
+::
 
-The following GitHub Workflow configuration runs [sqlc push](push.md) on
+The following GitHub Workflow configuration runs [sqlc push](push) on
 every push to `main`. Create an auth token via the
 [dashboard](https://dashboard.sqlc.dev).
 
@@ -125,9 +125,9 @@ jobs:
 
 ### verify
 
-```{note}
+::note
 Verify database migrations is powered by [sqlc Cloud](https://dashboard.sqlc.dev). Sign up for [free](https://dashboard.sqlc.dev) today.
-```
+::
 
 ```yaml
 name: sqlc
