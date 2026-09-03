@@ -10,8 +10,6 @@ sections:
   - title: Commands
     items:
       - howto/generate
-      - howto/push
-      - howto/verify
       - howto/vet
 
   - title: How-to Guides
@@ -24,15 +22,12 @@ sections:
       - howto/prepared_query
       - howto/transactions
       - howto/named_parameters
+      - howto/dynamic_queries
       - howto/ddl
       - howto/structs
       - howto/embedding
       - howto/overrides
       - howto/rename
-
-  - title: sqlc Cloud
-    items:
-      - howto/managed-databases
 
   - title: Reference
     items:
@@ -47,7 +42,6 @@ sections:
 
   - title: Conceptual Guides
     items:
-      - howto/ci-cd
       - guides/using-go-and-pgx
       - guides/plugins
       - guides/development

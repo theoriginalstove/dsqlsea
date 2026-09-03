@@ -1,7 +1,38 @@
 # Changelog
-All notable changes to this project will be documented in this file.
+All notable changes to dsqlsea will be documented in this file.
 
-(v1-31-1)=
+dsqlsea is a fork of [sqlc](https://github.com/sqlc-dev/sqlc), taken from `main`
+on 2026-06-09, shortly after sqlc's v1.31.1 release.
+
+Entries are split accordingly:
+
+- **dsqlsea releases** carry `v0.x.y` tags and are listed first.
+- **sqlc releases, v1.31.1 and earlier**, are kept below as inherited history.
+  They document sqlc rather than dsqlsea, and some of them describe features this
+  fork does not carry — anything built on sqlc Cloud, for example.
+
+## [0.1.0](https://github.com/theoriginalstove/dsqlsea/releases/tag/v0.1.0)
+Released 2026-07-02
+
+First tagged release of the fork.
+
+### Features
+
+- Dynamic queries: build `WHERE` clauses at runtime from `@dynamic` parameters,
+  with comparison operators inferred from the query rather than declared
+  separately
+- Nested condition groups for dynamic queries, including `AND`, `OR` and `NOT`
+- Dynamic `ORDER BY`
+- `sqlc.slice` support for `IN` clauses
+- Code generation for dynamic queries targeting Go with `database/sql` and
+  `pgx/v5`
+- PostgreSQL, MySQL and SQLite engine support for the above
+
+## Inherited sqlc changelog
+
+Everything below this point is sqlc's own changelog, up to and including its
+v1.31.1 release. It is retained for reference.
+
 ## [1.31.1](https://github.com/sqlc-dev/sqlc/releases/tag/v1.31.1)
 Released 2026-04-22
 
@@ -14,7 +45,6 @@ Released 2026-04-22
 
 - (deps) Bump github.com/jackc/pgx/v5 (#4398)
 
-(v1-31-0)=
 ## [1.31.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.31.0)
 Released 2026-04-19
 
@@ -68,7 +98,6 @@ Released 2026-04-19
 - Skip CI/RTD builds when the change is irrelevant (#4381)
 - (deps) 35 dependabot bumps (collapsed from individual entries)
 
-(v1-30-0)=
 ## [1.30.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.30.0)
 Released 2025-09-01
 
@@ -122,7 +151,6 @@ Released 2025-09-01
 - (deps) Bump golang from 1.24.5 to 1.25.0 (#4063)
 - (deps) Bump github.com/google/cel-go (#4080)
 
-(v1-29-0)=
 ## [1.29.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.29.0)
 Released 2025-04-14
 
@@ -220,7 +248,6 @@ Released 2025-04-14
 - (deps) Bump the production-dependencies group across 1 directory with 3 updates (#3923)
 - (deps) Upgrade github.com/wasilibs/go-pgquery (#3927)
 
-(v1-28-0)=
 ## [1.28.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.28.0)
 Released 2025-01-20
 
@@ -284,7 +311,6 @@ Released 2025-01-20
 - (deps) Bump the production-dependencies group with 2 updates (#3789)
 - Upgrade to Go 1.23.5 (#3795)
 
-(v1-27-0)=
 ## [1.27.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.27.0)
 Released 2024-08-05
 
@@ -322,7 +348,6 @@ Released 2024-08-05
 - Enabled MySQL database (#3318)
 - Remove internal/sqltest/hosted package (#3521)
 
-(v1-26-0)=
 ## [1.26.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.26.0)
 Released 2024-03-28
 
@@ -364,7 +389,6 @@ This release is mainly a bug fix release. It also includes an [important securit
 - (deps) Bump github.com/pganalyze/pg_query_go to v5 (#3096)
 
 
-(v1-25-0)=
 ## [1.25.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.25.0)
 Released 2024-01-03
 
@@ -372,13 +396,13 @@ Released 2024-01-03
 
 #### Add tags to push and verify
 
-You can add tags when [pushing](../howto/push) schema and queries to [sqlc Cloud](https://dashboard.sqlc.dev). Tags operate like git tags, meaning you can overwrite previously-pushed tag values. We suggest tagging pushes to associate them with something relevant from your environment, e.g. a git tag or branch name.
+You can add tags when [pushing](https://docs.sqlc.dev/en/v1.31.1/howto/push.html) schema and queries to [sqlc Cloud](https://dashboard.sqlc.dev). Tags operate like git tags, meaning you can overwrite previously-pushed tag values. We suggest tagging pushes to associate them with something relevant from your environment, e.g. a git tag or branch name.
 
 ```
 $ sqlc push --tag v1.0.0
 ```
 
-Once you've created a tag, you can refer to it when [verifying](../howto/verify) changes, allowing you
+Once you've created a tag, you can refer to it when [verifying](https://docs.sqlc.dev/en/v1.31.1/howto/verify.html) changes, allowing you
 to compare the existing schema against a known set of previous queries.
 
 ```
@@ -458,7 +482,6 @@ If you run into any issues with the updated dependencies, please [open an issue]
 - (sqlite) Disable modernc for WASM (#3048)
 - (sqlite) Switch from mattn/go-sqlite3 to modernc.org/sqlite (#3040)
 
-(v1-24-0)=
 ## [1.24.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.24.0)
 Released 2023-11-22
 
@@ -604,7 +627,6 @@ By using gRPC interfaces, we can even (theoretically) support [remote plugins](h
 - (deps) Bump certifi from 2023.7.22 to 2023.11.17 in /docs (#2993)
 - (ci) Bump Go version from 1.21.3 to 1.21.4 in workflows and Dockerfile (#2961)
 
-(v1-23-0)=
 ## [1.23.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.23.0)
 Released 2023-10-24
 
@@ -736,7 +758,6 @@ for sqlc to add at the top of generated source files.
 - Bump go version in workflows (#2835)
 
 
-(v1-22-0)=
 ## [1.22.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.22.0)
 Released 2023-09-26
 
@@ -809,7 +830,6 @@ Read more in the [managed databases](../howto/managed-databases) documentation.
 - Bump go version to latest in ci workflows (#2722)
 
 
-(v1-21-0)=
 ## [1.21.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.21.0)
 Released 2023-09-06
 
@@ -940,7 +960,6 @@ environment, set to the version of the `sqlc` executable invoking it.
 - (deps) Bump pytz from 2023.3 to 2023.3.post1 in /docs (#2695)
 - (devenv) Bump go from 1.20.7 to 1.21.0 (#2702)
 
-(v1-20-0)=
 ## [1.20.0](https://github.com/sqlc-dev/sqlc/releases/tag/v1.20.0)
 Released 2023-07-31
 
@@ -1290,7 +1309,7 @@ package.
 #### Suggested CI/CD setup
 
 With the addition of `sqlc diff` and `sqlc vet`, we encourage users to run sqlc
-in your CI/CD pipelines. See our [suggested CI/CD setup](../howto/ci-cd) for
+in your CI/CD pipelines. See sqlc's [suggested CI/CD setup](https://docs.sqlc.dev/en/v1.31.1/howto/ci-cd.html) for
 more information.
 
 #### Simplified plugin development
