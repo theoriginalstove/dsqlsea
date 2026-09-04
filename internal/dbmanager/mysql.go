@@ -1,12 +1,12 @@
-package quickdb
+package dbmanager
 
 import (
 	"fmt"
 	"net/url"
 )
 
-// The database URI returned by the QuickDB service isn't understood by the
-// go-mysql-driver
+// MySQLReformatURI rewrites the URI of a database created by CreateDatabase
+// into the DSN form the go-sql-driver/mysql driver expects.
 func MySQLReformatURI(original string) (string, error) {
 	u, err := url.Parse(original)
 	if err != nil {
