@@ -160,21 +160,21 @@ func (e *Env) Validate(cfg *config.Config) error {
 	return nil
 }
 
-func getConfigPath(stderr io.Writer, f *pflag.Flag) (string, string, error) {
+func getConfigPath(f *pflag.Flag) (string, string, error) {
 	if f != nil && f.Changed {
 		file := f.Value.String()
 		if file == "" {
-			return "", "", fmt.Errorf("error parsing config: file argument is empty: %w", ErrReported)
+			return "", "", errors.New("error parsing config: file argument is empty")
 		}
 		abspath, err := filepath.Abs(file)
 		if err != nil {
-			return "", "", fmt.Errorf("error parsing config: absolute file path lookup failed: %w: %w", err, ErrReported)
+			return "", "", fmt.Errorf("error parsing config: absolute file path lookup failed: %w", err)
 		}
 		return filepath.Dir(abspath), filepath.Base(abspath), nil
 	} else {
 		wd, err := os.Getwd()
 		if err != nil {
-			return "", "", fmt.Errorf("error parsing sqlc.json: file does not exist: %w: %w", err, ErrReported)
+			return "", "", fmt.Errorf("error parsing sqlc.json: file does not exist: %w", err)
 		}
 		return wd, "", nil
 	}
@@ -186,7 +186,7 @@ var genCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "generate").End()
 		stderr := cmd.ErrOrStderr()
-		dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+		dir, name, err := getConfigPath(cmd.Flag("file"))
 		if err != nil {
 			return err
 		}
@@ -195,13 +195,12 @@ var genCmd = &cobra.Command{
 			Stderr: stderr,
 		})
 		if err != nil {
-			return errors.Join(err, ErrReported)
+			return err
 		}
 		defer trace.StartRegion(cmd.Context(), "writefiles").End()
 		for filename, source := range output {
 			os.MkdirAll(filepath.Dir(filename), 0o755)
 			if err := os.WriteFile(filename, []byte(source), 0o644); err != nil {
-				fmt.Fprintf(stderr, "%s: %s\n", filename, err)
 				return err
 			}
 		}
@@ -215,7 +214,7 @@ var checkCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "compile").End()
 		stderr := cmd.ErrOrStderr()
-		dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+		dir, name, err := getConfigPath(cmd.Flag("file"))
 		if err != nil {
 			return err
 		}
@@ -265,7 +264,7 @@ var diffCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "diff").End()
 		stderr := cmd.ErrOrStderr()
-		dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+		dir, name, err := getConfigPath(cmd.Flag("file"))
 		if err != nil {
 			return err
 		}
@@ -274,7 +273,7 @@ var diffCmd = &cobra.Command{
 			Stderr: stderr,
 		}
 		if err := Diff(cmd.Context(), dir, name, opts); err != nil {
-			return errors.Join(err, ErrReported)
+			return err
 		}
 		return nil
 	},

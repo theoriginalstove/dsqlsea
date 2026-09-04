@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"os"
 	"runtime/trace"
@@ -22,7 +21,7 @@ var createDBCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "createdb").End()
 		stderr := cmd.ErrOrStderr()
-		dir, filename, err := getConfigPath(stderr, cmd.Flag("file"))
+		dir, filename, err := getConfigPath(cmd.Flag("file"))
 		if err != nil {
 			return err
 		}
@@ -35,7 +34,7 @@ var createDBCmd = &cobra.Command{
 			Stderr: stderr,
 		})
 		if err != nil {
-			return errors.Join(err, ErrReported)
+			return err
 		}
 		return nil
 	},

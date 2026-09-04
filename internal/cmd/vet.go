@@ -30,7 +30,6 @@ import (
 	"github.com/theoriginalstove/dsqlsea/internal/migrations"
 	"github.com/theoriginalstove/dsqlsea/internal/opts"
 	"github.com/theoriginalstove/dsqlsea/internal/plugin"
-	"github.com/theoriginalstove/dsqlsea/internal/quickdb"
 	"github.com/theoriginalstove/dsqlsea/internal/shfmt"
 	"github.com/theoriginalstove/dsqlsea/internal/sql/sqlpath"
 	"github.com/theoriginalstove/dsqlsea/internal/sqlcdebug"
@@ -58,12 +57,12 @@ func NewCmdVet() *cobra.Command {
 				Env:    ParseEnv(cmd),
 				Stderr: stderr,
 			}
-			dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+			dir, name, err := getConfigPath(cmd.Flag("file"))
 			if err != nil {
 				return err
 			}
 			if err := Vet(cmd.Context(), dir, name, opts); err != nil {
-				return errors.Join(err, ErrReported)
+				return err
 			}
 			return nil
 		},
@@ -453,7 +452,7 @@ func (c *checker) fetchDatabaseUri(ctx context.Context, s config.SQL) (string, f
 	var uri string
 	switch s.Engine {
 	case config.EngineMySQL:
-		dburi, err := quickdb.MySQLReformatURI(resp.Uri)
+		dburi, err := dbmanager.MySQLReformatURI(resp.Uri)
 		if err != nil {
 			return "", cleanup, fmt.Errorf("reformat uri: %w", err)
 		}
