@@ -10,7 +10,7 @@ Installing recent versions of dsql requires Go 1.21+.
 go install github.com/theoriginalstove/dsqlsea/cmd/dsql@latest
 ```
 
-For upstream sqlc, use `go install github.com/theoriginalstove/dsqlsea/cmd/sqlc@latest`.
+For upstream sqlc, use `go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest`.
 
 ## Docker
 
