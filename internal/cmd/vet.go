@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"github.com/theoriginalstove/dsqlsea/internal/constants"
 	"io"
 	"log"
 	"os"
@@ -25,6 +24,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/theoriginalstove/dsqlsea/internal/config"
+	"github.com/theoriginalstove/dsqlsea/internal/constants"
 	"github.com/theoriginalstove/dsqlsea/internal/dbmanager"
 	"github.com/theoriginalstove/dsqlsea/internal/debug"
 	"github.com/theoriginalstove/dsqlsea/internal/migrations"
@@ -58,12 +58,12 @@ func NewCmdVet() *cobra.Command {
 				Env:    ParseEnv(cmd),
 				Stderr: stderr,
 			}
-			dir, name := getConfigPath(stderr, cmd.Flag("file"))
+			dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+			if err != nil {
+				return err
+			}
 			if err := Vet(cmd.Context(), dir, name, opts); err != nil {
-				if !errors.Is(err, ErrFailedChecks) {
-					fmt.Fprintf(stderr, "%s\n", err)
-				}
-				os.Exit(1)
+				return errors.Join(err, ErrReported)
 			}
 			return nil
 		},

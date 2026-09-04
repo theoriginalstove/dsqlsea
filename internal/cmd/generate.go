@@ -29,6 +29,8 @@ import (
 	"github.com/theoriginalstove/dsqlsea/internal/sqlcdebug"
 )
 
+var ErrReported = errors.New("command failed")
+
 var debugDumpCatalog = sqlcdebug.New("dumpcatalog")
 
 const errMessageNoVersion = `The configuration file must have a version number.

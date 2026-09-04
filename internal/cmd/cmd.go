@@ -28,7 +28,6 @@ var debugProcessPlugins = sqlcdebug.New("processplugins")
 
 func init() {
 	createDBCmd.Flags().StringP("queryset", "", "", "name of the queryset to use")
-	pushCmd.Flags().BoolP("dry-run", "", false, "dump push request (default: false)")
 	initCmd.Flags().BoolP("v1", "", false, "generate v1 config yaml file")
 	initCmd.Flags().BoolP("v2", "", true, "generate v2 config yaml file")
 	initCmd.MarkFlagsMutuallyExclusive("v1", "v2")
@@ -37,7 +36,7 @@ func init() {
 
 // Do runs the command logic.
 func Do(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) int {
-	rootCmd := &cobra.Command{Use: "sqlc", SilenceUsage: true}
+	rootCmd := &cobra.Command{Use: "sqlc", SilenceUsage: true, SilenceErrors: true}
 	rootCmd.PersistentFlags().StringP("file", "f", "", "specify an alternate config file (default: sqlc.yaml)")
 
 	rootCmd.AddCommand(checkCmd)
@@ -47,8 +46,6 @@ func Do(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) int 
 	rootCmd.AddCommand(initCmd)
 	rootCmd.AddCommand(parseCmd)
 	rootCmd.AddCommand(versionCmd)
-	rootCmd.AddCommand(verifyCmd)
-	rootCmd.AddCommand(pushCmd)
 	rootCmd.AddCommand(NewCmdVet())
 
 	rootCmd.SetArgs(args)
@@ -69,9 +66,11 @@ func Do(args []string, stdin io.Reader, stdout io.Writer, stderr io.Writer) int 
 	if err := rootCmd.ExecuteContext(ctx); err != nil {
 		if exitError, ok := err.(*exec.ExitError); ok {
 			return exitError.ExitCode()
-		} else {
-			return 1
 		}
+		if !errors.Is(err, ErrReported) {
+			fmt.Fprintf(stderr, "Error: %s\n", err)
+		}
+		return 1
 	}
 	return 0
 }
@@ -123,7 +122,7 @@ var initCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		err = os.WriteFile(file, blob, 0644)
+		err = os.WriteFile(file, blob, 0o644)
 		if err != nil {
 			return err
 		}
@@ -161,26 +160,23 @@ func (e *Env) Validate(cfg *config.Config) error {
 	return nil
 }
 
-func getConfigPath(stderr io.Writer, f *pflag.Flag) (string, string) {
+func getConfigPath(stderr io.Writer, f *pflag.Flag) (string, string, error) {
 	if f != nil && f.Changed {
 		file := f.Value.String()
 		if file == "" {
-			fmt.Fprintln(stderr, "error parsing config: file argument is empty")
-			os.Exit(1)
+			return "", "", fmt.Errorf("error parsing config: file argument is empty: %w", ErrReported)
 		}
 		abspath, err := filepath.Abs(file)
 		if err != nil {
-			fmt.Fprintf(stderr, "error parsing config: absolute file path lookup failed: %s\n", err)
-			os.Exit(1)
+			return "", "", fmt.Errorf("error parsing config: absolute file path lookup failed: %w: %w", err, ErrReported)
 		}
-		return filepath.Dir(abspath), filepath.Base(abspath)
+		return filepath.Dir(abspath), filepath.Base(abspath), nil
 	} else {
 		wd, err := os.Getwd()
 		if err != nil {
-			fmt.Fprintln(stderr, "error parsing sqlc.json: file does not exist")
-			os.Exit(1)
+			return "", "", fmt.Errorf("error parsing sqlc.json: file does not exist: %w: %w", err, ErrReported)
 		}
-		return wd, ""
+		return wd, "", nil
 	}
 }
 
@@ -190,18 +186,21 @@ var genCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "generate").End()
 		stderr := cmd.ErrOrStderr()
-		dir, name := getConfigPath(stderr, cmd.Flag("file"))
+		dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+		if err != nil {
+			return err
+		}
 		output, err := Generate(cmd.Context(), dir, name, &Options{
 			Env:    ParseEnv(cmd),
 			Stderr: stderr,
 		})
 		if err != nil {
-			os.Exit(1)
+			return errors.Join(err, ErrReported)
 		}
 		defer trace.StartRegion(cmd.Context(), "writefiles").End()
 		for filename, source := range output {
-			os.MkdirAll(filepath.Dir(filename), 0755)
-			if err := os.WriteFile(filename, []byte(source), 0644); err != nil {
+			os.MkdirAll(filepath.Dir(filename), 0o755)
+			if err := os.WriteFile(filename, []byte(source), 0o644); err != nil {
 				fmt.Fprintf(stderr, "%s: %s\n", filename, err)
 				return err
 			}
@@ -216,13 +215,16 @@ var checkCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "compile").End()
 		stderr := cmd.ErrOrStderr()
-		dir, name := getConfigPath(stderr, cmd.Flag("file"))
-		_, err := Generate(cmd.Context(), dir, name, &Options{
+		dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+		if err != nil {
+			return err
+		}
+		_, err = Generate(cmd.Context(), dir, name, &Options{
 			Env:    ParseEnv(cmd),
 			Stderr: stderr,
 		})
 		if err != nil {
-			os.Exit(1)
+			return err
 		}
 		return nil
 	},
@@ -263,13 +265,16 @@ var diffCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		defer trace.StartRegion(cmd.Context(), "diff").End()
 		stderr := cmd.ErrOrStderr()
-		dir, name := getConfigPath(stderr, cmd.Flag("file"))
+		dir, name, err := getConfigPath(stderr, cmd.Flag("file"))
+		if err != nil {
+			return err
+		}
 		opts := &Options{
 			Env:    ParseEnv(cmd),
 			Stderr: stderr,
 		}
 		if err := Diff(cmd.Context(), dir, name, opts); err != nil {
-			os.Exit(1)
+			return errors.Join(err, ErrReported)
 		}
 		return nil
 	},
