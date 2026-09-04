@@ -228,3 +228,45 @@ func (b *CreateBookBatchResults) Close() error {
 __NOTE: This command is driver and package specific, see [how to insert](../howto/insert#using-copyfrom)
 
 This command is used to insert rows a lot faster than sequential inserts.
+
+## `:dynamicone`
+
+Similar to `:one` this command will return a single row, with the difference being that queries can contain dynamic `WHERE` or `ORDER BY` clauses. Which then these optional fields are controlled by passing in the parameters via the generated option types.
+
+```sql
+-- name: GetRecordIn :dynamicone
+-- @dynamic ids
+-- @dynamic-sort id
+SELECT id, name, age, created_at FROM records
+WHERE tenant_id = sqlc.arg(tenant_id)
+  AND id IN (sqlc.slice(ids));
+```
+
+```go
+type GetRecordInOpts struct {
+    ids     []int64
+    orderBy []string
+}
+
+func (o GetRecordInOpts) Ids(v []int64) GetRecordInOpts {
+	o.ids = v
+	return o
+}
+
+type GetRecordInOrderByColumn string
+
+func (o GetRecordInOpts) OrderBy(col GetRecordInOrderByColumn, desc bool) GetRecordInOpts {
+	dir := " ASC"
+	if desc {
+		dir = " DESC"
+	}
+	o.orderBy = append(o.orderBy, string(col)+dir)
+	return o
+}
+
+func (q *Queries) GetRecordIn(ctx context.Context, tenantID int64, opts GetRecordInOpts) (GetRecordInRow, error) {
+    // ...
+}
+
+```
+
