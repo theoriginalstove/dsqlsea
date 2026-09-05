@@ -1,0 +1,48 @@
+name: release
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-tag:
+    name: tag matches info.Version
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-go@v6
+      with:
+        go-version: '1.26.4'
+
+    - name: info.Version equals the tag
+      run: |
+        set -euo pipefail
+        want="${GITHUB_REF_NAME}"
+        got=$(go run ./cmd/dsql version)
+        if [ "$want" != "$got" ]; then
+          echo "::error::tag ${want} but info.Version reports ${got}"
+          echo "fix: go run ./scripts/bump-version -c <old> -n ${want#v} -w"
+          exit 1
+        fi
+        echo "tag ${want} matches info.Version"
+
+    - name: generated files match the tag
+      run: |
+        set -euo pipefail
+        want="${GITHUB_REF_NAME}"
+        found=$(grep -rhoE '^//   dsqlsea v[0-9]+\.[0-9]+\.[0-9]+' \
+          internal/endtoend/testdata examples | sort -u || true)
+        if [ -z "$found" ]; then
+          echo "::error::found no version headers to check — has the header format changed?"
+          exit 1
+        fi
+        bad=$(echo "$found" | grep -v "^//   dsqlsea ${want}$" || true)
+        if [ -n "$bad" ]; then
+          echo "::error::generated files reference versions other than ${want}"
+          echo "$bad"
+          exit 1
+        fi
+        echo "all generated files report ${want}"

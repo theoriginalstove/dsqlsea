@@ -3,13 +3,7 @@ on:
   push:
     branches:
       - main
-    paths-ignore:
-      - 'docs/**'
-      - '.readthedocs.yaml'
   pull_request:
-    paths-ignore:
-      - 'docs/**'
-      - '.readthedocs.yaml'
 jobs:
   build:
     if: false
@@ -30,3 +24,18 @@ jobs:
         working-directory: python
       - run: sqlc diff
         working-directory: python/examples
+
+  python:
+    name: python
+    if: always()
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: require the job to have succeeded or been skipped
+      run: |
+        set -euo pipefail
+        result='${{ needs.build.result }}'
+        case "$result" in
+          success|skipped) echo "build: $result" ;;
+          *) echo "::error::build reported: $result"; exit 1 ;;
+        esac
