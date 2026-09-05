@@ -1,0 +1,124 @@
+# Cut a release: bump the version, verify, commit, tag.
+#
+# The version is committed data, not a build-time value — it lives in
+# internal/info/facts.go and in ~2800 generated golden files. A tag points at a
+# commit that already exists, so release.yml (which runs on the tag) can only
+# verify the version, never set it. The bump has to happen first, and doing it
+# by hand is what let v0.2.0 ship with v0.1.0 still in facts.go.
+#
+# This runs the bump, proves the tree agrees with itself, and only then tags.
+name: release prep
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, without the v (e.g. 0.2.3)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-prep
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+          # bump-version rewrites files tracked across the history, and the tag
+          # guard below needs every existing tag.
+          fetch-depth: 0
+
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.26.4'
+
+      - name: Resolve versions
+        id: versions
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          next="${INPUT_VERSION#v}"
+          if ! echo "$next" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "::error::version must look like 0.2.3, got '${INPUT_VERSION}'"
+            exit 1
+          fi
+
+          current=$(go run ./cmd/dsql version)
+          current="${current#v}"
+
+          if [ "$current" = "$next" ]; then
+            echo "::error::info.Version is already ${next}; nothing to bump"
+            exit 1
+          fi
+          if git rev-parse -q --verify "refs/tags/v${next}" >/dev/null; then
+            echo "::error::tag v${next} already exists"
+            exit 1
+          fi
+
+          echo "current=${current}" >> "$GITHUB_OUTPUT"
+          echo "next=${next}" >> "$GITHUB_OUTPUT"
+          echo "bumping ${current} -> ${next}"
+
+      - name: Bump version
+        run: |
+          set -euo pipefail
+          go run ./scripts/bump-version \
+            -c "${{ steps.versions.outputs.current }}" \
+            -n "${{ steps.versions.outputs.next }}" -w
+          echo "files changed: $(git status --porcelain | wc -l)"
+
+      - name: Verify the tree agrees with itself
+        run: |
+          set -euo pipefail
+          want="v${{ steps.versions.outputs.next }}"
+          got=$(go run ./cmd/dsql version)
+          if [ "$got" != "$want" ]; then
+            echo "::error::info.Version is ${got} after the bump, expected ${want}"
+            exit 1
+          fi
+          found=$(grep -rhoE '^//   dsqlsea v[0-9]+\.[0-9]+\.[0-9]+' \
+            internal/endtoend/testdata examples | sort -u || true)
+          bad=$(echo "$found" | grep -v "^//   dsqlsea ${want}$" || true)
+          if [ -n "$bad" ]; then
+            echo "::error::generated files still reference other versions:"
+            echo "$bad"
+            exit 1
+          fi
+          echo "info.Version and all generated files report ${want}"
+
+      # The goldens carry the version, so a bump is exactly the change these
+      # tests exist to catch. Running them here means a bad release never gets
+      # tagged, rather than being caught after the fact.
+      - name: Start databases
+        run: |
+          go run ./cmd/sqlc-test-setup install
+          go run ./cmd/sqlc-test-setup start
+
+      - name: Test
+        run: go test --tags=examples -timeout 20m ./...
+        env:
+          POSTGRESQL_SERVER_URI: "postgres://postgres:postgres@127.0.0.1:5432/postgres?sslmode=disable"
+          MYSQL_SERVER_URI: "root:mysecretpassword@tcp(127.0.0.1:3306)/mysql?multiStatements=true&parseTime=true"
+          CGO_ENABLED: "0"
+
+      - name: Commit and tag
+        run: |
+          set -euo pipefail
+          version="v${{ steps.versions.outputs.next }}"
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m "chore: bump version to ${version}"
+          git push origin main
+          git tag -a "${version}" -m "${version}"
+          git push origin "${version}"
+          echo "tagged ${version} — release.yml will verify it"
