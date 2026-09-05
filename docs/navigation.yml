@@ -56,5 +56,5 @@ sections:
   - title: Migration Guides
     items:
       - guides/migrating-off-hosted-managed-databases
-      - guides/migrating-to-sqlc-gen-kotlin
-      - guides/migrating-to-sqlc-gen-python
+      #- guides/migrating-to-sqlc-gen-kotlin
+      #- guides/migrating-to-sqlc-gen-python
