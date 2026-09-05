@@ -79,19 +79,6 @@ func run(current, next string, realmode bool) error {
 		}
 	}
 
-	{
-		path := filepath.Join("docs", "conf.py")
-		c, err := os.ReadFile(path)
-		if err != nil {
-			return err
-		}
-		old := string(c)
-		new := strings.ReplaceAll(old, "release = '"+current, "release = '"+next)
-		if err := write(path, old, new); err != nil {
-			return err
-		}
-	}
-
 	walker := func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -115,6 +102,7 @@ func run(current, next string, realmode bool) error {
 			new = strings.ReplaceAll(new,
 				`sqlc-version: '`+current,
 				`sqlc-version: '`+next)
+			new = strings.ReplaceAll(new, "dsqlsea v"+current, "dsqlsea v"+next)
 			new = strings.ReplaceAll(new, "sqlc v"+current, "sqlc v"+next)
 			new = strings.ReplaceAll(new, "SQLC_VERSION=v"+current, "SQLC_VERSION=v"+next)
 			if err := write(path, old, new); err != nil {

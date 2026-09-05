@@ -5,6 +5,34 @@ on:
       - main
   pull_request:
 jobs:
+  version-sync:
+    name: version sync
+    runs-on: ubuntu-24.04
+    steps:
+    - uses: actions/checkout@v6
+    - uses: actions/setup-go@v6
+      with:
+        go-version: '1.26.4'
+
+    - name: generated files match info.Version
+      run: |
+        set -euo pipefail
+        want=$(go run ./cmd/dsql version)
+        found=$(grep -rhoE '^//   dsqlsea v[0-9]+\.[0-9]+\.[0-9]+' \
+          internal/endtoend/testdata examples | sort -u || true)
+        if [ -z "$found" ]; then
+          echo "::error::found no version headers to check — has the header format changed?"
+          exit 1
+        fi
+        bad=$(echo "$found" | grep -v "^//   dsqlsea ${want}$" || true)
+        if [ -n "$bad" ]; then
+          echo "::error::generated files reference versions other than ${want}"
+          echo "$bad"
+          echo "fix: go run ./scripts/bump-version -c <old> -n ${want#v} -w"
+          exit 1
+        fi
+        echo "all generated files report ${want}"
+
   build:
     strategy:
       matrix:
@@ -72,3 +100,22 @@ jobs:
 
     steps:
     - uses: golang/govulncheck-action@v1
+
+  ci:
+    name: ci
+    if: always()
+    needs: [version-sync, build, test, vuln_check]
+    runs-on: ubuntu-24.04
+    steps:
+    - name: require every job to have succeeded or been skipped
+      run: |
+        set -euo pipefail
+        failed=0
+        for result in ${{ join(needs.*.result, ' ') }}; do
+          case "$result" in
+            success|skipped) ;;
+            *) echo "::error::a job reported: $result"; failed=1 ;;
+          esac
+        done
+        [ "$failed" -eq 0 ] || exit 1
+        echo "all jobs succeeded or were skipped"
