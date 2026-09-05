@@ -16,9 +16,9 @@ FROM
   author
 `
 
-func (q *Queries) GetRestrictedId(ctx context.Context, id int64) (bool, error) {
+func (q *Queries) GetRestrictedId(ctx context.Context, id int64) (int64, error) {
 	row := q.db.QueryRowContext(ctx, getRestrictedId, id)
-	var restricted_id bool
+	var restricted_id int64
 	err := row.Scan(&restricted_id)
 	return restricted_id, err
 }

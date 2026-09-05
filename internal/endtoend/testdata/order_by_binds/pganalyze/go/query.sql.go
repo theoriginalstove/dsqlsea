@@ -7,6 +7,7 @@ package querytest
 
 import (
 	"context"
+	"database/sql"
 )
 
 const listAuthorsColumnSort = `-- name: ListAuthorsColumnSort :many
@@ -17,7 +18,7 @@ ORDER   BY CASE WHEN $2 = 'name' THEN name END
 
 type ListAuthorsColumnSortParams struct {
 	MinID      int64
-	SortColumn interface{}
+	SortColumn sql.NullString
 }
 
 func (q *Queries) ListAuthorsColumnSort(ctx context.Context, arg ListAuthorsColumnSortParams) ([]Author, error) {

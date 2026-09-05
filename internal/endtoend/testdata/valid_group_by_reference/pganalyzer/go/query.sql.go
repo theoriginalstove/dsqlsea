@@ -8,6 +8,7 @@ package querytest
 import (
 	"context"
 	"database/sql"
+	"time"
 )
 
 const listAuthors = `-- name: ListAuthors :many
@@ -75,7 +76,7 @@ ORDER BY bucket DESC
 `
 
 type ListMetricsRow struct {
-	Bucket   int64
+	Bucket   time.Time
 	CityName sql.NullString
 	Avg      float64
 }

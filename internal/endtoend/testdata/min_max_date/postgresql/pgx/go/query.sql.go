@@ -7,6 +7,8 @@ package querytest
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const activityStats = `-- name: ActivityStats :one
@@ -19,8 +21,8 @@ WHERE account_id = $1
 
 type ActivityStatsRow struct {
 	Numofactivities int64
-	Mindate         interface{}
-	Maxdate         interface{}
+	Mindate         pgtype.Timestamptz
+	Maxdate         pgtype.Timestamptz
 }
 
 func (q *Queries) ActivityStats(ctx context.Context, accountID int64) (ActivityStatsRow, error) {
